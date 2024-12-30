@@ -1308,6 +1308,8 @@ build.json @home-assistant/supervisor
 /tests/components/search/ @home-assistant/core
 /homeassistant/components/season/ @frenck
 /tests/components/season/ @frenck
+/homeassistant/components/secvest_jeelink/ @wiegi
+/tests/components/secvest_jeelink/ @wiegi
 /homeassistant/components/select/ @home-assistant/core
 /tests/components/select/ @home-assistant/core
 /homeassistant/components/sense/ @kbickar

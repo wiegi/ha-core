@@ -5460,6 +5460,12 @@
       "config_flow": true,
       "iot_class": "local_polling"
     },
+    "secvest_jeelink": {
+      "name": "Secvest",
+      "integration_type": "hub",
+      "config_flow": true,
+      "iot_class": "local_polling"
+    },
     "sendgrid": {
       "name": "SendGrid",
       "integration_type": "hub",

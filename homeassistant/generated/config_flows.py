@@ -528,6 +528,7 @@ FLOWS = {
         "scrape",
         "screenlogic",
         "season",
+        "secvest_jeelink",
         "sense",
         "sensibo",
         "sensirion_ble",
