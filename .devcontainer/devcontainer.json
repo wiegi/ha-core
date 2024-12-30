@@ -16,8 +16,13 @@
     "-e",
     "GIT_EDITOR=code --wait",
     "--security-opt",
-    "label=disable"
+    "label=disable",
+    "--device=/dev/ttyUSB0" 
   ],
+  "mounts": [
+    "source=/dev/ttyUSB0,target=/dev/ttyUSB0,type=bind" // USB-Gerät mounten
+  ],
+  "privileged": true, // Privilegierter Modus für Hardwarezugriff
   "customizations": {
     "vscode": {
       "extensions": [
