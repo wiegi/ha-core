@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 import voluptuous as vol
+
 from homeassistant import config_entries
 from homeassistant.core import callback
 
 from .const import (
-    DOMAIN,
     CONF_DEVICE_PATH,
     CONF_SENSORS,
+    DOMAIN,
     SENSOR_TYPE_DOOR,
     SENSOR_TYPE_MOTION,
 )

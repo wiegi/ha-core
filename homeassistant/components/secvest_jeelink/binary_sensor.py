@@ -1,15 +1,16 @@
 """Binary sensor platform for My USB Radio Integration."""
 
 import logging
+
 from homeassistant.components.binary_sensor import (
-    BinarySensorEntity,
     BinarySensorDeviceClass,
+    BinarySensorEntity,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN, CONF_SENSORS, SENSOR_TYPE_DOOR, SENSOR_TYPE_MOTION
+from .const import CONF_SENSORS, SENSOR_TYPE_DOOR, SENSOR_TYPE_MOTION
 
 _LOGGER = logging.getLogger(__name__)
 

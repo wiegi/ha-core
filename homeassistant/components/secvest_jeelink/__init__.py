@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import logging
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import DOMAIN, CONF_DEVICE_PATH, CONF_SENSORS
+from .const import CONF_DEVICE_PATH, CONF_SENSORS, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
