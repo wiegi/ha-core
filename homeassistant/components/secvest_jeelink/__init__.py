@@ -1,43 +1,46 @@
-"""The Secvest integration."""
+"""Initialization of My USB Radio Integration."""
 
 from __future__ import annotations
 
+import logging
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
-# For your initial PR, limit it to 1 platform.
-PLATFORMS: list[Platform] = [Platform.SENSOR]
+from .const import DOMAIN, CONF_DEVICE_PATH, CONF_SENSORS
+
+_LOGGER = logging.getLogger(__name__)
 
 
-class SecvestIntegration:
-    """Represents a specific functionality for secvest_jeelink.
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Set up the integration from a config entry."""
 
-    This class is responsible for managing the integration between Secvest and Jeelink,
-    handling configuration, and managing related API interactions.
-    """
+    device_path = entry.data.get(CONF_DEVICE_PATH)
+    # sensors are now stored in entry.options
+    sensors = entry.options.get(CONF_SENSORS, [])
 
+    _LOGGER.debug("Setting up USB radio at: %s", device_path)
+    _LOGGER.debug("Sensors in options: %s", sensors)
 
-# TODO Create ConfigEntry type alias with API object
-# TODO Rename type alias and update all entry annotations
-type New_NameConfigEntry = ConfigEntry[SecvestIntegration]  # noqa: F821
+    # TODO: Open serial, if needed
 
-
-# TODO Update entry annotation
-async def async_setup_entry(hass: HomeAssistant, entry: New_NameConfigEntry) -> bool:
-    """Set up Secvest from a config entry."""
-
-    # TODO 1. Create API instance
-    # TODO 2. Validate the API connection (and authentication)
-    # TODO 3. Store an API object for your platforms to access
-    # entry.runtime_data = MyAPI(...)
-
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-
+    # Forward the binary_sensor platform
+    hass.async_create_task(
+        hass.config_entries.async_forward_entry_setup(entry, "binary_sensor")
+    )
     return True
 
 
-# TODO Update entry annotation
-async def async_unload_entry(hass: HomeAssistant, entry: New_NameConfigEntry) -> bool:
-    """Unload a config entry."""
-    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Unload the integration when user removes it or disables it."""
+    unload_ok = await hass.config_entries.async_unload_platforms(
+        entry, ["binary_sensor"]
+    )
+    if unload_ok:
+        # Close resources if needed
+        _LOGGER.debug("Unloaded integration for %s", entry.entry_id)
+    return unload_ok
+
+
+async def update_listener(hass: HomeAssistant, entry: ConfigEntry):
+    """Reload the config entry when options are updated."""
+    await hass.config_entries.async_reload(entry.entry_id)

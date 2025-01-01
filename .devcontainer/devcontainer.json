@@ -2,7 +2,7 @@
   "name": "Home Assistant Dev",
   "context": "..",
   "dockerFile": "../Dockerfile.dev",
-  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && script/setup",
+  "postCreateCommand": "usermod -aG dialout vscode && newgrp dialout || true && git config --global --add safe.directory ${containerWorkspaceFolder} && script/setup",
   "postStartCommand": "script/bootstrap",
   "containerEnv": {
     "PYTHONASYNCIODEBUG": "1"
@@ -16,8 +16,11 @@
     "-e",
     "GIT_EDITOR=code --wait",
     "--security-opt",
-    "label=disable"
+    "label=disable",
+    "--device=/dev/ttyUSB0"
   ],
+  "mounts": ["source=/dev/ttyUSB0,target=/dev/ttyUSB0,type=bind"],
+  "privileged": true,
   "customizations": {
     "vscode": {
       "extensions": [
